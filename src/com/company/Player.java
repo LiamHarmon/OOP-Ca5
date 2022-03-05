@@ -43,4 +43,17 @@ public class Player
                 ", totalTime=" + totalTime +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Player)) return false;
+        Player player = (Player) o;
+        return getCaps() == player.getCaps() && Double.compare(player.getTotalTime(), getTotalTime()) == 0 && Objects.equals(getName(), player.getName()) && Objects.equals(getPosition(), player.getPosition());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getPosition(), getCaps(), getTotalTime());
+    }
 }

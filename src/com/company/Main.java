@@ -59,7 +59,7 @@ public class Main {
                         break;
                     case TREEMAP:
                         System.out.println("TreeMap option chosen");
-
+                        TreeMap();
                         break;
                     case EXIT:
                         System.out.println("Exit Menu option chosen");
@@ -93,8 +93,6 @@ public static void ArrayList1()
     playerList.add(new Player("Conor Murray","Scrumhalf",94,110.00));
     playerList.add(new Player("Peter O'Mahony","Back Row",82,244.00));
     playerList.add(new Player("Johnny Sexton","Flyhalf",103,216.00));
-
-    System.out.printf("%5s %15s %15s %20s %n", "Name", "Position", "Caps", "Total Time");
 
     for(Player player : playerList)
     {
@@ -132,11 +130,35 @@ public static void HashMap()
     {
         System.out.println(key + " favourite player is: " + player);
     }else{
-        System.out.println(key + " NOT found");
+        System.out.println("The key: " + key + " could not be found.");
     }
-    }
+}
 
+public static void TreeMap()
+{
+    Map<Long, Player> playerTree = new TreeMap<>();
+
+    playerTree.put(10L, new Player("Bundee Aki","Centre",35,281.00));
+    playerTree.put(7L, new Player("Joey Carbery","Flyhalf",30,262.00));
+    playerTree.put(8L, new Player("Keith Earls","Fullback/Wing",96,36.00));
+    playerTree.put(4L, new Player("Tadhg Furlong","Prop",55,362.00));
+    playerTree.put(5L, new Player("Cian Healy","Prop",114,73.00));
+    playerTree.put(6L, new Player("Iain Henderson","Lock/Back Row",66,93.00));
+    playerTree.put(2L, new Player("Robbie Henshaw","Centre/Fullback",55,150.00));
+    playerTree.put(3L, new Player("Conor Murray","Scrumhalf",94,110.00));
+    playerTree.put(9L, new Player("Peter O'Mahony","Back Row",82,244.00));
+    playerTree.put(1L,new Player("Johnny Sexton","Flyhalf",103,216.00));
+
+    Set<Long> keySet = playerTree.keySet();
+
+    for (Long key : keySet) {
+        Player player = playerTree.get(key);
+        System.out.println("Key: " + key
+                + player.getName() + ", Position: " + player.getPosition() + ", Caps: " + player.getCaps() + ", Total Time: " + player.getTotalTime());
     }
+}
+
+}
 
 
 
