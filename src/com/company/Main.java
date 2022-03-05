@@ -98,6 +98,7 @@ public static void ArrayList1()
     playerList.add(new Player("Johnny Sexton","Flyhalf",103,216.00));
 
 
+
     for(Player ireland : playerList)
     {
         System.out.println(ireland);
