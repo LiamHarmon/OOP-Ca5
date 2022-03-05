@@ -98,7 +98,7 @@ public static void ArrayList1()
 
     for(Player player : playerList)
     {
-        System.out.println(player);
+        System.out.println(player + ",");
     }
 }
 
@@ -117,14 +117,26 @@ public static void HashMap()
     playerMap.put(9, new Player("Peter O'Mahony","Back Row",82,244.00));
     playerMap.put(10,new Player("Johnny Sexton","Flyhalf",103,216.00));
 
-    Set<Integer> keySet = playerMap.keySet();
-
-    for (Integer key : keySet) {
-        Player player = playerMap.get(key);
-        System.out.println("Player_ID: " + key + " Name: "
-                + player.getName() + " " +
-                " " + "Position: " + player.getPosition() + " " + "Caps: " + player.getCaps() + " " + "Total Time: " + player.getTotalTime());
+    System.out.println("All values from the Map:");
+    Collection<Player> values = playerMap.values(); // get all the values
+    for (Player p : values) {
+        System.out.println(p + ", ");
     }
-}
 
-}
+        System.out.println("\n");
+        Scanner kb = new Scanner(System.in);
+        System.out.println("\nEnter a Key(1-10) to search for a player. Type 0 to exit");
+        int key = kb.nextInt();
+        Player player = playerMap.get(key);
+    if(player != null)
+    {
+        System.out.println(key + " favourite player is: " + player);
+    }else{
+        System.out.println(key + " NOT found");
+    }
+    }
+
+    }
+
+
+
