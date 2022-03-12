@@ -32,13 +32,15 @@ public class Main {
                 + "1. ArrayList\n"
                 + "2. HashMap\n"
                 + "3. TreeMap\n"
-                + "4. Exit\n"
-                + "Enter Option [1,4]";
+                + "4. PriorityQueue"
+                + "5. Exit\n"
+                + "Enter Option [1,5]";
 
         final int ARRAYLIST = 1;
         final int HASHMAP = 2;
         final int TREEMAP = 3;
-        final int EXIT = 4;
+        final int PRIORITYQUEUE = 4;
+        final int EXIT = 5;
 
         Scanner keyboard = new Scanner(System.in);
         int option = 0;
@@ -62,6 +64,10 @@ public class Main {
                     case TREEMAP:
                         System.out.println("TreeMap option chosen");
                         TreeMap();
+                        break;
+                    case PRIORITYQUEUE:
+                        System.out.println("PriorityQueue option chosen");
+                        PriorityQueue();
                         break;
                     case EXIT:
                         System.out.println("Exit Menu option chosen");
@@ -158,6 +164,29 @@ public static void TreeMap()
         System.out.println("Key: " + key
                 + player.getName() + ", Position: " + player.getPosition() + ", Caps: " + player.getCaps() + ", Total Time: " + player.getTotalTime());
     }
+}
+
+public static void PriorityQueue()
+{
+    PriorityQueue<Player> queuePlayer = new PriorityQueue<Player>(new PlayerCapComparator(SortType.Ascending));
+
+    queuePlayer.add(new Player("Bundee Aki","Centre",35,281.00));
+    queuePlayer.add(new Player("Joey Carbery","Flyhalf",30,262.00));
+    queuePlayer.add(new Player("Keith Earls","Fullback/Wing",96,36.00));
+    queuePlayer.add(new Player("Tadhg Furlong","Prop",55,362.00));
+    queuePlayer.add(new Player("Cian Healy","Prop",114,73.00));
+    queuePlayer.add(new Player("Iain Henderson","Lock/Back Row",66,93.00));
+    queuePlayer.add(new Player("Robbie Henshaw","Centre/Fullback",55,150.00));
+    queuePlayer.add(new Player("Conor Murray","Scrumhalf",94,110.00));
+    queuePlayer.add(new Player("Peter O'Mahony","Back Row",82,244.00));
+    queuePlayer.add(new Player("Johnny Sexton","Flyhalf",103,216.00));
+
+    System.out.println("Values in order of Age Priority:");
+    Iterator<Player> iterator = queuePlayer.iterator();
+    while (iterator.hasNext()) {
+        System.out.println(queuePlayer.remove());
+    }
+
 }
 
 }
