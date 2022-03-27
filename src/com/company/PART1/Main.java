@@ -1,4 +1,4 @@
-package com.company;
+package com.company.PART1;
 
 import java.io.IOException;
 import java.util.*;
@@ -34,15 +34,17 @@ public class Main {
                 + "3. TreeMap\n"
                 + "4. PriorityQueue\n"
                 + "5. PriorityQueue1\n"
-                + "6. Exit\n"
-                + "Enter Option [1,6]";
+                + "6. FindAllPlayersFromSql\n"
+                + "7. Exit\n"
+                + "Enter Option [1,7]";
 
         final int ARRAYLIST = 1;
         final int HASHMAP = 2;
         final int TREEMAP = 3;
         final int PRIORITYQUEUE = 4;
         final int PRIORITYQUEUE1 = 5;
-        final int EXIT = 6;
+        final int FINDALLPLAYERSFROMSQL = 6;
+        final int EXIT = 7;
 
         Scanner keyboard = new Scanner(System.in);
         int option = 0;
@@ -73,7 +75,11 @@ public class Main {
                         break;
                     case PRIORITYQUEUE1:
                         System.out.println("PriorityQueue Compare option chosen");
-                        PlayerComapare();
+                        PlayerCompare();
+                        break;
+                    case FINDALLPLAYERSFROMSQL:
+                        System.out.println("Find all Players from MySQL Database");
+                        PlayerCompare();
                         break;
                     case EXIT:
                         System.out.println("Exit Menu option chosen");
@@ -194,7 +200,7 @@ public static void PriorityQueue()
     }
 }
 
-public static void PlayerComapare()
+public static void PlayerCompare()
 {
     PriorityQueue<Player> queuePlayer1 = new PriorityQueue<Player>();
 
@@ -209,13 +215,9 @@ public static void PlayerComapare()
     queuePlayer1.add(new Player("Peter O'Mahony","Back Row",82,244.00));
     queuePlayer1.add(new Player("Johnny Sexton","Flyhalf",103,216.00));
 
-    System.out.println("Priority order dictated by compareTo() method in drivers class");
+    System.out.println("Priority order using compareTo() Player class");
     Iterator<Player> iterator = queuePlayer1.iterator();
     while (iterator.hasNext()) {
-        System.out.println(queuePlayer1.remove());
-    }
-
-    while(!queuePlayer1.isEmpty()){
         System.out.println(queuePlayer1.remove());
     }
 
