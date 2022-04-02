@@ -9,8 +9,8 @@ public class Main {
 
     public static void main(String[] args)
     {
-        Main main = new Main();
-        main.start();
+        Main app = new Main();
+        app.start();
     }
 
     public void start()
@@ -33,18 +33,16 @@ public class Main {
                 + "2. HashMap\n"
                 + "3. TreeMap\n"
                 + "4. PriorityQueue\n"
-                + "5. PriorityQueue1\n"
-                + "6. FindAllPlayersFromSql\n"
-                + "7. Exit\n"
-                + "Enter Option [1,7]";
+                + "5. PlayerCompare\n"
+                + "6. Exit\n"
+                + "Enter Option [1,6]";
 
         final int ARRAYLIST = 1;
         final int HASHMAP = 2;
         final int TREEMAP = 3;
         final int PRIORITYQUEUE = 4;
-        final int PRIORITYQUEUE1 = 5;
-        final int FINDALLPLAYERSFROMSQL = 6;
-        final int EXIT = 7;
+        final int PLAYERCOMPARE = 5;
+        final int EXIT = 6;
 
         Scanner keyboard = new Scanner(System.in);
         int option = 0;
@@ -73,15 +71,11 @@ public class Main {
                         System.out.println("PriorityQueue option chosen");
                         PriorityQueue();
                         break;
-                    case PRIORITYQUEUE1:
-                        System.out.println("PriorityQueue Compare option chosen");
+                    case PLAYERCOMPARE:
+                        System.out.println("PlayerCompare option chosen");
                         PlayerCompare();
                         break;
-                    case FINDALLPLAYERSFROMSQL:
-                        System.out.println("Find all Players from MySQL Database");
-                        PlayerCompare();
-                        break;
-                        case EXIT:
+                    case EXIT:
                         System.out.println("Exit Menu option chosen");
                         break;
                     default:

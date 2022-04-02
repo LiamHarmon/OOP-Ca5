@@ -11,5 +11,9 @@ public interface PlayerDaoInterface
 
     public Player findPlayerByID(String player_id) throws  DaoException;
 
+    public void deletePlayerByID(String player_id) throws DaoException;
+
+    public void addPlayer(String full_name, String position, int caps, double total_time) throws DaoException;
+
 }
 

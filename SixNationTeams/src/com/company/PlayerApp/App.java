@@ -34,12 +34,16 @@ public class App {
         final String MENU_ITEMS = "\n*** MAIN MENU OF OPTIONS ***\n"
                 + "1. FindAllPlayersFromSql\n"
                 + "2, FindPlayerByID\n"
-                + "3. Exit\n"
-                + "Enter Option [1,3]";
+                + "3, DeletePlayerByID\n"
+                + "4, AddPlayer\n"
+                + "5. Exit\n"
+                + "Enter Option [1,5]";
 
         final int FINDALLPLAYERSFROMSQL = 1;
         final int FINDPLAYERBYID = 2;
-        final int EXIT = 3;
+        final int DELETEPLAYERBYID = 3;
+        final int ADDPLAYER = 4;
+        final int EXIT = 5;
 
         Scanner keyboard = new Scanner(System.in);
         int option = 0;
@@ -56,6 +60,14 @@ public class App {
                     case FINDPLAYERBYID:
                         System.out.println("Find Players By ID from MySQL Database");
                         findPlayerByID();
+                        break;
+                    case DELETEPLAYERBYID:
+                        System.out.println("Delete Player By ID from MySQL Database");
+                        deletePlayerByID();
+                        break;
+                    case ADDPLAYER:
+                        System.out.println("Add Player to MySQL Database");
+                        addPlayer();
                         break;
                     case EXIT:
                         System.out.println("Exit Menu option chosen");
@@ -79,7 +91,9 @@ public class App {
         PlayerDaoInterface IPlayerDao = new MySqlPlayerDao();
 
         try {
-            System.out.println("\nCall FindAllPlayers()");
+            System.out.println("\n============================");
+            System.out.println("Call FindAllPlayers()");
+            System.out.println("============================\n");
             List<Player> players = IPlayerDao.findAllPlayers();     // call a method in the DAO
 
             if (players.isEmpty())
@@ -98,7 +112,9 @@ public class App {
         PlayerDaoInterface IPlayerDao = new MySqlPlayerDao();
 
         try {
-            System.out.println("\nCall: findUserByUsernamePassword()\n");
+            System.out.println("\n============================");
+            System.out.println("Call: findPlayerByID()");
+            System.out.println("============================\n");
             System.out.println("Enter value between 1-10");
             Scanner kb = new Scanner(System.in);
             String player_id = kb.nextLine();
@@ -108,6 +124,51 @@ public class App {
                 System.out.println("Player found: " + player);
             else
                 System.out.println("Player with that key not found");
+
+        }catch (DaoException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deletePlayerByID() throws DaoException {
+        PlayerDaoInterface IPlayerDao = new MySqlPlayerDao();
+
+        try {
+            System.out.println("\n============================");
+            System.out.println("Call: deletePlayerByID()");
+            System.out.println("============================\n");
+            System.out.println("Enter valid playerID");
+            Scanner kb = new Scanner(System.in);
+            String player_id = kb.nextLine();
+            IPlayerDao.deletePlayerByID(player_id);
+
+            if (player_id != null) // null returned if userid and password not valid
+                System.out.println("Player deleted");
+            else
+                System.out.println("Player with that key not found");
+
+        }catch (DaoException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addPlayer() throws DaoException {
+        PlayerDaoInterface IPlayerDao = new MySqlPlayerDao();
+
+        try {
+            System.out.println("\nCall: addPlayer()\n");
+            Scanner kb = new Scanner(System.in);
+            System.out.println("Enter A Six Nations Players FUll Name");
+            String full_name = kb.nextLine();
+            System.out.println("\nEnter The Players Position");
+            String position = kb.nextLine();
+            System.out.println("\nEnter Players Caps For Their Team");
+            int caps = kb.nextInt();
+            System.out.println("\nEnter Players Total Time on The Pitch");
+            double total_time = kb.nextDouble();
+            IPlayerDao.addPlayer(full_name, position, caps, total_time);
+
+            System.out.println("Player Added");
 
         }catch (DaoException e) {
             e.printStackTrace();
