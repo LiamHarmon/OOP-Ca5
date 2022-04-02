@@ -120,10 +120,54 @@ public class MySqlPlayerDao extends MySqlDao implements PlayerDaoInterface
                 }
             } catch (SQLException e)
             {
-                throw new DaoException("findAllUsers() " + e.getMessage());
+                throw new DaoException("findPlayerByID() " + e.getMessage());
             }
         }
         return player;     // may be empty
+    }
+
+    @Override
+    public void deletePlayerByID(String player_id) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = this.getConnection();
+
+            String query = "DELETE FROM six_nations.player WHERE PLAYER_ID = ?";
+            preparedStatement = connection.prepareStatement(query);
+
+            preparedStatement.setString(1, player_id);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void addPlayer(String full_name, String position, int caps, double total_time) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = this.getConnection();
+
+            String query = "INSERT INTO six_nations.player VALUES (null, ?, ?, ?, ?)";
+            preparedStatement = connection.prepareStatement(query);
+
+            preparedStatement.setString(1, full_name);
+            preparedStatement.setString(2, position);
+            preparedStatement.setInt(3, caps);
+            preparedStatement.setDouble(4, total_time);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }
 

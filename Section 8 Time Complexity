@@ -1,0 +1,4 @@
+ArrayList = O(n)
+HasMap = O(1)
+TreeMap = O(log(n))
+Priority Queue = O(log(n))
