@@ -1,5 +1,6 @@
 package com.company.DAOS;
 
+import com.company.DTOs.ComparePlayer;
 import com.company.DTOs.Player;
 import com.company.Exceptions.DaoException;
 

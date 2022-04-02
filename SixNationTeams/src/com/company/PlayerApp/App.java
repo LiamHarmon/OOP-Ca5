@@ -1,14 +1,13 @@
 package com.company.PlayerApp;
 
 import java.io.IOException;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
+
 import com.company.DAOS.MySqlPlayerDao;
 import com.company.DAOS.PlayerDaoInterface;
+import com.company.DTOs.ComparePlayer;
 import com.company.DTOs.Player;
 import com.company.Exceptions.DaoException;
-
-import java.util.List;
 
 // Liam Harmon SD2b
 
@@ -47,6 +46,7 @@ public class App {
 
         Scanner keyboard = new Scanner(System.in);
         int option = 0;
+
         do {
             System.out.println("\n" + MENU_ITEMS);
             try {
@@ -95,6 +95,7 @@ public class App {
             System.out.println("Call FindAllPlayers()");
             System.out.println("============================\n");
             List<Player> players = IPlayerDao.findAllPlayers();     // call a method in the DAO
+            players.sort(new ComparePlayer());
 
             if (players.isEmpty())
                 System.out.println("There are no Players");
@@ -142,7 +143,7 @@ public class App {
             String player_id = kb.nextLine();
             IPlayerDao.deletePlayerByID(player_id);
 
-            if (player_id != null) // null returned if userid and password not valid
+            if (player_id != null)
                 System.out.println("Player deleted");
             else
                 System.out.println("Player with that key not found");
@@ -174,4 +175,5 @@ public class App {
             e.printStackTrace();
         }
     }
+
 }

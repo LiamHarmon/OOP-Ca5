@@ -1,5 +1,6 @@
 package com.company.DAOS;
 
+import com.company.DTOs.ComparePlayer;
 import com.company.DTOs.Player;
 import com.company.Exceptions.DaoException;
 
@@ -14,6 +15,7 @@ public interface PlayerDaoInterface
     public void deletePlayerByID(String player_id) throws DaoException;
 
     public void addPlayer(String full_name, String position, int caps, double total_time) throws DaoException;
+
 
 }
 
