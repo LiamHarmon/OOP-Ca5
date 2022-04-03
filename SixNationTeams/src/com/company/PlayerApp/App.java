@@ -35,14 +35,18 @@ public class App {
                 + "2, FindPlayerByID\n"
                 + "3, DeletePlayerByID\n"
                 + "4, AddPlayer\n"
-                + "5. Exit\n"
-                + "Enter Option [1,5]";
+                + "5, JSONFindAllPlayers\n"
+                + "6, JSONFindPlayerByID\n"
+                + "7. Exit\n"
+                + "Enter Option [1,7]";
 
         final int FINDALLPLAYERSFROMSQL = 1;
         final int FINDPLAYERBYID = 2;
         final int DELETEPLAYERBYID = 3;
         final int ADDPLAYER = 4;
-        final int EXIT = 5;
+        final int JSONFINDALLPLAYERS = 5;
+        final int JSONFINDPLAYERBYID = 6;
+        final int EXIT = 7;
 
         Scanner keyboard = new Scanner(System.in);
         int option = 0;
@@ -68,6 +72,14 @@ public class App {
                     case ADDPLAYER:
                         System.out.println("Add Player to MySQL Database");
                         addPlayer();
+                        break;
+                    case JSONFINDALLPLAYERS:
+                        System.out.println("Find Players And Put Into JSON Format From MySQL Database");
+                        JSONFindAllPlayers();
+                        break;
+                    case JSONFINDPLAYERBYID:
+                        System.out.println("Find Player By ID And Put Into JSON Format From MySQL Database");
+                        JSONFindPlayerByID();
                         break;
                     case EXIT:
                         System.out.println("Exit Menu option chosen");
@@ -170,6 +182,41 @@ public class App {
             IPlayerDao.addPlayer(full_name, position, caps, total_time);
 
             System.out.println("Player Added");
+
+        }catch (DaoException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void JSONFindAllPlayers() throws DaoException{
+        PlayerDaoInterface IPlayerDao = new MySqlPlayerDao();
+
+        try {
+            System.out.println("\n============================");
+            System.out.println("Call FindAllPlayers()");
+            System.out.println("============================\n");
+            String playerJSON = IPlayerDao.JSONFindAllPlayers();     // call a method in the DAO
+
+            System.out.println(playerJSON);
+
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void JSONFindPlayerByID() throws DaoException{
+        PlayerDaoInterface IPlayerDao = new MySqlPlayerDao();
+
+        try {
+            System.out.println("\n============================");
+            System.out.println("Call: findPlayerByID()");
+            System.out.println("============================\n");
+            System.out.println("Enter value between 1-10");
+            Scanner kb = new Scanner(System.in);
+            String player_id = kb.nextLine();
+            String playerJSON = IPlayerDao.JSONFindPlayerByID(player_id);
+
+            System.out.println(playerJSON);
 
         }catch (DaoException e) {
             e.printStackTrace();

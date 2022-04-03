@@ -16,6 +16,10 @@ public interface PlayerDaoInterface
 
     public void addPlayer(String full_name, String position, int caps, double total_time) throws DaoException;
 
+    public String JSONFindAllPlayers() throws DaoException;
+
+    public String JSONFindPlayerByID(String player_id) throws DaoException;
+
 
 }
 
