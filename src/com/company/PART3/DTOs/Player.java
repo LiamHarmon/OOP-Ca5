@@ -1,4 +1,4 @@
-package com.company.DTOs;
+package com.company.PART3.DTOs;
 
 public class Player
 {

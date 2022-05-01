@@ -1,9 +1,9 @@
-package com.company.DAOS;
+package com.company.PART2.DAOS;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import com.company.Exceptions.DaoException;
+import com.company.PART2.Exceptions.DaoException;
 
 public class MySqlDao
 {
