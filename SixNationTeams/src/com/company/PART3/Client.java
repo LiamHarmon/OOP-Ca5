@@ -20,6 +20,11 @@ package com.company.PART3;
  */
 
 
+import com.company.PART1.SortType;
+import com.company.PART3.DTOs.ComparePlayer;
+import com.company.PART3.DTOs.Player;
+import com.company.PART3.DTOs.PlayerCapComparator;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -43,11 +48,13 @@ public class Client {
             System.out.println("Client message: The Client is running and has connected to the server");
 
             System.out.println("Client Side Menu\n");
-            System.out.println("1: Display All Players\n");
-            System.out.println("2: Display Player By ID\n");
-            System.out.println("3: Add Player\n");
+            System.out.println("1: Display All Players");
+            System.out.println("2: Display Player By ID");
+            System.out.println("3: Add Player");
             System.out.println("4: Delete Player By ID");
-            String command = in.nextLine();
+            System.out.println("5: Display All in Order of Caps\n");
+            System.out.println("Enter next command");
+            String command = in.next();
 
             OutputStream os = socket.getOutputStream();
             PrintWriter socketWriter = new PrintWriter(os, true);   // true => auto flush buffers
@@ -73,17 +80,20 @@ public class Client {
                 }
                 else if (command.startsWith("3"))
                 {
+                    Scanner keyboard = new Scanner(System.in);
+
                     System.out.println("Add Player Chosen\n");
                     System.out.println("Enter Name");
-                    String name = in.nextLine();
+                    String full_name = keyboard.nextLine();
                     System.out.println("Enter Position");
-                    String position = in.nextLine();
+                    String position = keyboard.nextLine();
                     System.out.println("Enter Caps");
-                    int caps = in.nextInt();
+                    int caps = keyboard.nextInt();
                     System.out.println("Enter Total Time");
-                    double totaltime = in.nextDouble();
+                    double total_time = keyboard.nextDouble();
 
-                    String addPlayer = name + " " + position + " " + caps + " " + totaltime;
+                    String addPlayer =  full_name + "," + position + "," + caps + "," + total_time;
+                    System.out.println();
                     socketWriter.println(addPlayer);
 
                 }
@@ -96,9 +106,20 @@ public class Client {
                     String deletePlayer = socketReader.nextLine();
                     System.out.println(deletePlayer);
                 }
-
+                else if (command.startsWith("5"))                            // the user has entered the Echo command or an invalid command
+                {
+                    System.out.println("Display All Players In Order of Caps Chosen\n");
+                    String player = socketReader.nextLine();
+                    System.out.println(player(new PlayerCapComparator(SortType.Ascending)));
+                }
+                System.out.println("Client Side Menu\n");
+                System.out.println("1: Display All Players");
+                System.out.println("2: Display Player By ID");
+                System.out.println("3: Add Player");
+                System.out.println("4: Delete Player By ID");
+                System.out.println("5: Display All in Order of Caps\n");
                 System.out.println("Enter next command");
-                command = in.nextLine();
+                command = in.next();
                 socketWriter.println(command);
             }
                 socketWriter.close();
@@ -109,6 +130,10 @@ public class Client {
         } catch (IOException e) {
             System.out.println("Client message: IOException: " + e);
         }
+    }
+
+    private boolean player(PlayerCapComparator playerCapComparator) {
+        return true;
     }
 }
 

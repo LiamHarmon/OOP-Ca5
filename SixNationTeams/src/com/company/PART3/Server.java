@@ -37,10 +37,12 @@ import java.net.Socket;
 
 import com.company.PART2.DAOS.MySqlPlayerDao;
 import com.company.PART2.DAOS.PlayerDaoInterface;
+import com.company.PART2.DTOs.ComparePlayer;
 import com.company.PART2.Exceptions.DaoException;
 import com.company.PART3.DAOS.MySqlDao;
 import com.company.PART3.DTOs.Player;
-import com.company.PART3.DTOs.ComparePlayer;
+import com.company.PART3.DTOs.PlayerCapComparator;
+import com.company.PART1.SortType;
 
 public class Server
 {
@@ -116,11 +118,12 @@ public class Server
         public void run()
         {
             String message;
-            PlayerDaoInterface IPlayerDao = new MySqlPlayerDao();
+
             try
             {
                 while ((message = socketReader.readLine()) != null)
                 {
+                    PlayerDaoInterface IPlayerDao = new MySqlPlayerDao();
                     System.out.println("Server: (ClientHandler): Read command from client " + clientNumber + ": " + message);
 
                     if (message.startsWith("1"))
@@ -139,17 +142,16 @@ public class Server
                     }
                     else if (message.startsWith("3"))
                     {
-                        String add = socketReader.readLine();
-                        String tokens[] = message.split(" ");
-                        String name =tokens[1];
-                        String position = tokens[2];
-                        int caps = Integer.parseInt(tokens[3]);
-                        double totaltime = Double.parseDouble(tokens[4]);
-                        IPlayerDao.addPlayer(name, position, caps, totaltime);
-                        if (add != null) // null returned if userid and password not valid
-                            socketWriter.println(add);
-                        else
-                            socketWriter.println("Player not added");
+                        String addPlayer = socketReader.readLine();
+                        System.out.println("debug message= " + message);
+                        String[] tokens = addPlayer.split(",");
+                        System.out.println("debug tokens[] = " +tokens);
+                        String full_name = tokens[0];
+                        String position = tokens[1];
+                        int caps = Integer.parseInt(tokens[2]);
+                        double total_time = Double.parseDouble(tokens[3]);
+                        IPlayerDao.addPlayer(full_name, position, caps, total_time);
+                        socketWriter.println("Player added = " + addPlayer);
                     }
 
                     else if (message.startsWith("4"))
@@ -160,6 +162,13 @@ public class Server
                             socketWriter.println("Player deleted: " + player);
                         else
                             socketWriter.println("Player with that ID not found");
+                    }
+                    else if (message.startsWith("5"))
+                    {
+
+                        String showPlayer = IPlayerDao.JSONFindAllPlayers();
+                        socketWriter.println(showPlayer);
+
                     }
                 }
 
