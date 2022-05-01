@@ -7,4 +7,3 @@ D00236258
 SD2b
 
 # Feature 18
-![alt text]((https://github.com/LiamHarmon/OOP-Ca5/blob/master/Blank%20diagram.png "Feature 18")
