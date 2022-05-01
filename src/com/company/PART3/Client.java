@@ -24,13 +24,18 @@ import com.company.PART1.SortType;
 import com.company.PART3.DTOs.ComparePlayer;
 import com.company.PART3.DTOs.Player;
 import com.company.PART3.DTOs.PlayerCapComparator;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.lang.reflect.Type;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.*;
 
 public class Client {
     public static void main(String[] args) {
@@ -40,6 +45,7 @@ public class Client {
 
     public void start() {
         Scanner in = new Scanner(System.in);
+        Gson gsonParser = new Gson();
         try {
             Socket socket = new Socket("localhost", 8080);  // connect to server socket
             System.out.println("Client: Port# of this client : " + socket.getLocalPort());
@@ -68,7 +74,12 @@ public class Client {
                 {
                     System.out.println("Display All Players Chosen\n");
                     String player = socketReader.nextLine();
-                    System.out.println(player);
+                    Type playerList = new TypeToken<ArrayList<Player>>(){}.getType();
+                    List<Player> allPlayers = gsonParser.fromJson(player, playerList);
+                    for(Player p : allPlayers)
+                    {
+                        System.out.println(p);
+                    }
                 } else if (command.startsWith("2"))                            // the user has entered the Echo command or an invalid command
                 {
                     System.out.println("Display Player By ID Chosen\n");
@@ -108,9 +119,15 @@ public class Client {
                 }
                 else if (command.startsWith("5"))                            // the user has entered the Echo command or an invalid command
                 {
-                    System.out.println("Display All Players In Order of Caps Chosen\n");
+                    System.out.println("Display All Players In Order of Name Chosen\n");
                     String player = socketReader.nextLine();
-                    System.out.println(player(new PlayerCapComparator(SortType.Ascending)));
+                    Type playerList = new TypeToken<ArrayList<Player>>(){}.getType();
+                    List<Player> allPlayers = gsonParser.fromJson(player, playerList);
+                    allPlayers.sort(new ComparePlayer());
+                    for(Player p : allPlayers)
+                    {
+                        System.out.println(p);
+                    }
                 }
                 System.out.println("Client Side Menu\n");
                 System.out.println("1: Display All Players");
